@@ -29,9 +29,18 @@ class FootBallApiService {
         }
     }
 
+    init {
+        MATCHES = mutableListOf<Match>()
+        TEAMS = mutableListOf<Team>()
+        CYCLES = mutableListOf<Cycle>()
+        MATCH_TIMESTAMP = getTime(-10)
+        TEAM_TIMESTAMP = getTime(-10)
+        CYCLE_TIMESTAMP = getTime(-10)
+    }
+
     fun getMatches(leagueId: Int = 2021): List<Match> {
         val now = getTime(-1)
-        if (MATCHES == null || now.after(MATCH_TIMESTAMP)) {
+        if (MATCHES.isEmpty() || now.after(MATCH_TIMESTAMP)) {
             val url = ApiService.BASEURL + leagueId + ApiService.MATCHES
             val resp = ApiService.invoke(url)
             MATCHES = PunditzUtil.parseMatches(resp)
@@ -47,7 +56,7 @@ class FootBallApiService {
 
     fun getTeams(leagueId: Int = 2021): List<Team> {
         val now = getTime(-1)
-        if (TEAMS == null || now.after(TEAM_TIMESTAMP)) {
+        if (TEAMS.isEmpty() || now.after(TEAM_TIMESTAMP)) {
             val url = ApiService.BASEURL + leagueId + ApiService.TEAMS
             val resp = ApiService.invoke(url)
             TEAMS = PunditzUtil.parseTeams(resp)
@@ -63,7 +72,7 @@ class FootBallApiService {
     fun getCycles(leagueId: Int = 2021): MutableMap<Int, Cycle> {
         val now = getTime(-1)
         val cycleMap: MutableMap<Int, Cycle>
-        if (CYCLES == null || now.after(CYCLE_TIMESTAMP)) {
+        if (CYCLES.isEmpty() || now.after(CYCLE_TIMESTAMP)) {
             val matches = getMatches(leagueId)
             cycleMap = CycleUtil.calculateCycles(matches, leagueId)
             CYCLES = cycleMap.values.toMutableList()

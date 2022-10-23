@@ -5,5 +5,6 @@ enum class Types(val type: String) {
     PICKS("picks"),
     PREDICTIONS("predicts"),
     POINTS("points"),
-    SCORE("score")
+    SCORE("score"),
+    EXCEPTION("exception")
 }
