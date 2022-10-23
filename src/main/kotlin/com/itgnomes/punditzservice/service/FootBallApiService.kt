@@ -38,7 +38,7 @@ class FootBallApiService {
         CYCLE_TIMESTAMP = getTime(-10)
     }
 
-    fun getMatches(leagueId: Int = 2021): List<Match> {
+    fun getMatches(leagueId: Int? = 2021): List<Match> {
         val now = getTime(-1)
         if (MATCHES.isEmpty() || now.after(MATCH_TIMESTAMP)) {
             val url = ApiService.BASEURL + leagueId + ApiService.MATCHES
@@ -80,6 +80,13 @@ class FootBallApiService {
             cycleMap = CycleUtil.calculateCycles(MATCHES, leagueId)
         }
         return cycleMap
+    }
+
+    fun getCycleList(leagueId: Int): List<Cycle> {
+        if (CYCLES.isEmpty()) {
+            getCycles(leagueId)
+        }
+        return CYCLES
     }
 
     fun getCycle(cycleNumber: Int): Cycle? {

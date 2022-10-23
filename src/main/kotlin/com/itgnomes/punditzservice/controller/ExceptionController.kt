@@ -8,10 +8,11 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RestController
 
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 
-@RestController(value="/cycles")
+@RestController(value="/exceptions")
 class ExceptionController(@Autowired private val exceptionService: ExceptionService) {
 
     @GetMapping("/{cycleNumber}")
@@ -24,8 +25,13 @@ class ExceptionController(@Autowired private val exceptionService: ExceptionServ
         return exceptionService.getAll()
     }
 
-    @PutMapping("/exceptions")
-    fun updateExceptions(@RequestBody exception: Exception) {
+    @PostMapping
+    fun create(@RequestBody exception: Exception) {
+        exceptionService.insert(exception)
+    }
+
+    @PutMapping
+    fun update(@RequestBody exception: Exception) {
         exceptionService.update(exception)
     }
 }
