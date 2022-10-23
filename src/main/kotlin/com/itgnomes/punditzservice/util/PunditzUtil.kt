@@ -7,6 +7,10 @@ import com.itgnomes.punditzservice.model.Team
 
 class PunditzUtil {
     companion object {
+
+        val EPL = 2021
+        val EURO = 2018
+
         @JvmStatic
         fun parseResponse(punditzList: List<Punditz>) : List<String> {
             val response = mutableListOf<String>()
@@ -22,7 +26,6 @@ class PunditzUtil {
             return Gson().toJson(obj)
         }
 
-        @JvmStatic
         fun parseMatches(str: String): MutableList<Match> {
             val list = mutableListOf<Match>()
             val jsonList = Gson().fromJson(str, mutableListOf<String>().javaClass)
@@ -38,7 +41,6 @@ class PunditzUtil {
             return Gson().fromJson(str, Match::class.java)
         }
 
-        @JvmStatic
         fun parseTeams(str: String): MutableList<Team> {
             val list = mutableListOf<Team>()
             val jsonList = Gson().fromJson(str, mutableListOf<String>().javaClass)

@@ -37,6 +37,12 @@ class PickService(@Autowired private val punditzRepository : PunditzRepository) 
         return PickUtil.parsePicks(picksList)
     }
 
+    fun getByMatchId(matchId: Int): List<Pick> {
+        val punditzResponse = punditzRepository.findAllByTypeAndMatchId(Types.PICKS.name, matchId)
+        val picksList = PunditzUtil.parseResponse(punditzResponse)
+        return PickUtil.parsePicks(picksList)
+    }
+
     // update
     fun update(pick: Pick) {
         val p = punditzRepository.findByTypeAndUserNameAndMatchId(Types.PICKS.name, pick.userName, pick.matchId)

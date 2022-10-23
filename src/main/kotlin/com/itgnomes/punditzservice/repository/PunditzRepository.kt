@@ -20,4 +20,7 @@ interface PunditzRepository: JpaRepository<Punditz, Long> {
 
     @Query("SELECT p FROM PUNDITZ p WHERE p.type = ?1 AND JSON_VALUE(p.jsonData, '\$.userName') = ?2 AND JSON_VALUE(p.jsonData, '\$.cycleNumber') = ?3")
     fun findAllByTypeAndUserNameAndCycleNumber(type: String, userName: String, cycleNumber: Int): List<Punditz>
+
+    @Query("SELECT p FROM PUNDITZ p WHERE p.type = ?1 AND JSON_VALUE(p.jsonData, '\$.matchId') = ?2")
+    fun findAllByTypeAndMatchId(type: String, matchId: Int): List<Punditz>
 }
