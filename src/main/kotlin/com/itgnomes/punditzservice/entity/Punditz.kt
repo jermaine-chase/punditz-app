@@ -1,9 +1,9 @@
 package com.itgnomes.punditzservice.entity
 
 import org.springframework.data.annotation.Id
-import org.springframework.data.relational.core.mapping.Table
+import javax.persistence.Table
 
-@Table("pundit")
+@Table
 data class Punditz(@Id
     var id: Int? = null,
     var type: String,
