@@ -6,20 +6,20 @@ import com.itgnomes.punditzservice.service.PickService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
 
-@RestController(value="/picks")
+@RestController
 class PickController(@Autowired private val pickService: PickService) {
 
-    @GetMapping("/{cycleNumber}")
+    @GetMapping("/picks/{cycleNumber}")
     fun get(@PathVariable cycleNumber: Int, @RequestHeader userName: String): List<Pick> {
         return pickService.getByUserAndCycleNumber(userName, cycleNumber)
     }
 
-    @GetMapping
+    @GetMapping("/picks")
     fun getAll(): List<Pick> {
         return pickService.getAll()
     }
 
-    @PostMapping
+    @PostMapping("/picks")
     fun insert(@RequestBody pickList: List<Pick>): MutableList<String> {
         val updateResponses = mutableListOf<String>()
         pickList.forEach{
@@ -29,7 +29,7 @@ class PickController(@Autowired private val pickService: PickService) {
         return updateResponses
     }
 
-    @PutMapping
+    @PutMapping("/picks")
     fun update(@RequestBody pickList: List<Pick>): MutableList<String> {
         val updateResponses = mutableListOf<String>()
         pickList.forEach{
@@ -39,7 +39,7 @@ class PickController(@Autowired private val pickService: PickService) {
         return updateResponses
     }
 
-    @DeleteMapping
+    @DeleteMapping("/picks")
     fun delete(@RequestBody pickList: List<Pick>): MutableList<String> {
         val updateResponses = mutableListOf<String>()
         pickList.forEach{

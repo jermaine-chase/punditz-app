@@ -1,6 +1,5 @@
 package com.itgnomes.punditzservice.util
 
-import com.google.gson.Gson
 import com.itgnomes.punditzservice.model.Point
 
 class PointUtil {
@@ -18,7 +17,7 @@ class PointUtil {
 
         @JvmStatic
         fun parsePoint(str: String): Point {
-            return Gson().fromJson(str, Point::class.java)
+            return PunditzUtil.parse(str, Point::class)
         }
     }
 }

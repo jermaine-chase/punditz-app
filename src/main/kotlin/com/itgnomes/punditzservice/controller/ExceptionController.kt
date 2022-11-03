@@ -1,6 +1,5 @@
 package com.itgnomes.punditzservice.controller
 
-import com.itgnomes.punditzservice.model.Cycle
 import com.itgnomes.punditzservice.model.Exception
 import com.itgnomes.punditzservice.service.ExceptionService
 import org.springframework.web.bind.annotation.GetMapping
@@ -12,25 +11,25 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 
-@RestController(value="/exceptions")
+@RestController
 class ExceptionController(@Autowired private val exceptionService: ExceptionService) {
 
-    @GetMapping("/{cycleNumber}")
-    fun get(@PathVariable cycleNumber: Int): Exception {
-        return exceptionService.getByCycleNumber(cycleNumber)
+    @GetMapping("/excepts/{exceptionCycle}")
+    fun get(@PathVariable exceptionCycle: Int): Exception {
+        return exceptionService.getByCycleNumber(exceptionCycle)
     }
 
-    @GetMapping
+    @GetMapping("/excepts")
     fun getAll(): List<Exception> {
         return exceptionService.getAll()
     }
 
-    @PostMapping
+    @PostMapping("/excepts")
     fun create(@RequestBody exception: Exception) {
         exceptionService.insert(exception)
     }
 
-    @PutMapping
+    @PutMapping("/excepts")
     fun update(@RequestBody exception: Exception) {
         exceptionService.update(exception)
     }

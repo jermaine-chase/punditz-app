@@ -15,7 +15,7 @@ class CycleService(@Autowired private val punditzRepository : PunditzRepository)
 
     // create
     fun insert(c: Cycle) {
-        val jsonData = PunditzUtil.toJson(c)
+        val jsonData = PunditzUtil.toJson(c).toString()
        punditzRepository.save(Punditz(null, Types.CYCLES.type, jsonData))
     }
 
@@ -33,7 +33,7 @@ class CycleService(@Autowired private val punditzRepository : PunditzRepository)
     // update
     fun update(c: Cycle) {
         val p = punditzRepository.findByTypeAndCycleNumber(Types.CYCLES.name, c.cycleNumber)
-        p.jsonData = PunditzUtil.toJson(c)
+        p.jsonData = PunditzUtil.toJson(c).toString()
         punditzRepository.save(p)
     }
 

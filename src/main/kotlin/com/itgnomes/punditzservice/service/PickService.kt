@@ -15,7 +15,7 @@ class PickService(@Autowired private val punditzRepository : PunditzRepository) 
 
     // create
     fun insert(p: Pick) {
-        val jsonData = PunditzUtil.toJson(p)
+        val jsonData = PunditzUtil.toJson(p).toString()
         punditzRepository.save(Punditz(null, Types.PICKS.type, jsonData))
     }
 
@@ -46,7 +46,7 @@ class PickService(@Autowired private val punditzRepository : PunditzRepository) 
     // update
     fun update(pick: Pick) {
         val p = punditzRepository.findByTypeAndUserNameAndMatchId(Types.PICKS.name, pick.userName, pick.matchId)
-        p.jsonData = PunditzUtil.toJson(pick)
+        p.jsonData = PunditzUtil.toJson(pick).toString()
         punditzRepository.save(p)
     }
 

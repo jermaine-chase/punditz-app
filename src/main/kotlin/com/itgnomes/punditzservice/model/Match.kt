@@ -1,10 +1,8 @@
 package com.itgnomes.punditzservice.model
 
-import java.util.Calendar
-
 data class Match(
     val id: Int,
-    val utcDate: Calendar,
+    val utcDate: String,
     val status: String,
     val homeTeam: Team,
     val awayTeam: Team,

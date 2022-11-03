@@ -1,6 +1,5 @@
 package com.itgnomes.punditzservice.util
 
-import com.google.gson.Gson
 import com.itgnomes.punditzservice.model.Prediction
 
 class PredictionUtil {
@@ -18,7 +17,7 @@ class PredictionUtil {
 
         @JvmStatic
         fun parsePrediction(str: String): Prediction {
-            return Gson().fromJson(str, Prediction::class.java)
+            return PunditzUtil.parse(str, Prediction::class)
         }
     }
 }

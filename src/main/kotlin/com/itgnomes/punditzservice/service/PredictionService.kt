@@ -15,7 +15,7 @@ class PredictionService(@Autowired private val punditzRepository : PunditzReposi
 
     // create
     fun insert(p: Prediction) {
-        val jsonData = PunditzUtil.toJson(p)
+        val jsonData = PunditzUtil.toJson(p).toString()
         punditzRepository.save(Punditz(null, Types.PREDICTIONS.type, jsonData))
     }
 
@@ -42,7 +42,7 @@ class PredictionService(@Autowired private val punditzRepository : PunditzReposi
         val pList = punditzRepository.findAllByTypeAndUserName(Types.PREDICTIONS.name, prediction.userName)
         // There can only be one. - Colin MacLeod of the Clan MacLeod
         val p = pList[0]
-        p.jsonData = PunditzUtil.toJson(prediction)
+        p.jsonData = PunditzUtil.toJson(prediction).toString()
         punditzRepository.save(p)
     }
 

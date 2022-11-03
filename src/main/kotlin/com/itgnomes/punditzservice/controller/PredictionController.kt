@@ -6,7 +6,7 @@ import com.itgnomes.punditzservice.service.PredictionService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
 
-@RestController(value="/predictions")
+@RestController(value="/predict")
 class PredictionController(@Autowired private val predictionService: PredictionService) {
 
     @GetMapping("/p")

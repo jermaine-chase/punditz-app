@@ -6,32 +6,32 @@ import com.itgnomes.punditzservice.service.PointService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
 
-@RestController(value="/points")
+@RestController
 class PointController(@Autowired private val pointService: PointService) {
 
-    @GetMapping("/p")
+    @GetMapping("/points/user")
     fun get(@RequestHeader userName: String): List<Point> {
         return pointService.getByUser(userName)
     }
 
-    @GetMapping
+    @GetMapping("/points")
     fun getAll(): List<Point> {
         return pointService.getAll()
     }
 
-    @PostMapping
+    @PostMapping("/points")
     fun insert(@RequestBody point: Point): String {
         pointService.insert(point)
         return "Inserted points for ${point.userName}"
     }
 
-    @PutMapping
+    @PutMapping("/points")
     fun update(@RequestBody point: Point): String {
         pointService.update(point)
         return "Updated points for ${point.userName}"
     }
 
-    @DeleteMapping
+    @DeleteMapping("/points")
     fun delete(@RequestBody point: Point): String {
         pointService.delete(point)
         return "Deleted points for ${point.userName}"

@@ -1,6 +1,5 @@
 package com.itgnomes.punditzservice.util
 
-import com.google.gson.Gson
 import com.itgnomes.punditzservice.model.Pick
 
 class PickUtil {
@@ -18,7 +17,7 @@ class PickUtil {
 
         @JvmStatic
         fun parsePick(str: String): Pick {
-            return Gson().fromJson(str, Pick::class.java)
+            return PunditzUtil.parse(str, Pick::class)
         }
     }
 }

@@ -2,7 +2,6 @@ package com.itgnomes.punditzservice.service
 
 import com.itgnomes.punditzservice.model.Cycle
 import com.itgnomes.punditzservice.model.Match
-import com.itgnomes.punditzservice.model.Season
 import com.itgnomes.punditzservice.model.Team
 import com.itgnomes.punditzservice.util.CycleUtil
 import com.itgnomes.punditzservice.util.PunditzUtil
@@ -60,6 +59,7 @@ class FootBallApiService {
             val url = ApiService.BASEURL + leagueId + ApiService.TEAMS
             val resp = ApiService.invoke(url)
             TEAMS = PunditzUtil.parseTeams(resp)
+            TEAM_TIMESTAMP = Calendar.getInstance()
         }
         return TEAMS
     }
@@ -76,6 +76,7 @@ class FootBallApiService {
             val matches = getMatches(leagueId)
             cycleMap = CycleUtil.calculateCycles(matches, leagueId)
             CYCLES = cycleMap.values.toMutableList()
+            CYCLE_TIMESTAMP = Calendar.getInstance()
         } else {
             cycleMap = CycleUtil.calculateCycles(MATCHES, leagueId)
         }

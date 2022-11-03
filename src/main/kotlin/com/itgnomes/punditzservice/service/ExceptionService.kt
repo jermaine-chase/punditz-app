@@ -15,7 +15,7 @@ class ExceptionService(@Autowired private val punditzRepository : PunditzReposit
 
     // create
     fun insert(e: Exception) {
-        val jsonData = PunditzUtil.toJson(e)
+        val jsonData = PunditzUtil.toJson(e).toString()
        punditzRepository.save(Punditz(null, Types.EXCEPTION.type, jsonData))
     }
 
@@ -33,7 +33,7 @@ class ExceptionService(@Autowired private val punditzRepository : PunditzReposit
     // update
     fun update(e: Exception) {
         val p = punditzRepository.findByTypeAndCycleNumber(Types.EXCEPTION.name, e.cycleNumber)
-        p.jsonData = PunditzUtil.toJson(e)
+        p.jsonData = PunditzUtil.toJson(e).toString()
         punditzRepository.save(p)
     }
 

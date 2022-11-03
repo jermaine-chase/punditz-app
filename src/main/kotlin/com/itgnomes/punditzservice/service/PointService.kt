@@ -15,7 +15,7 @@ class PointService(@Autowired private val punditzRepository : PunditzRepository)
 
     // create
     fun insert(p: Point) {
-        val jsonData = PunditzUtil.toJson(p)
+        val jsonData = PunditzUtil.toJson(p).toString()
         punditzRepository.save(Punditz(null, Types.POINTS.type, jsonData))
     }
 
@@ -42,7 +42,7 @@ class PointService(@Autowired private val punditzRepository : PunditzRepository)
         val pList = punditzRepository.findAllByTypeAndUserName(Types.POINTS.name, point.userName)
         // There can only be one. - Colin MacLeod of the Clan MacLeod
         val p = pList[0]
-        p.jsonData = PunditzUtil.toJson(point)
+        p.jsonData = PunditzUtil.toJson(point).toString()
         punditzRepository.save(p)
     }
 

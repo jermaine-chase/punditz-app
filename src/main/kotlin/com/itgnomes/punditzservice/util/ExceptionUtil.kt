@@ -1,6 +1,5 @@
 package com.itgnomes.punditzservice.util
 
-import com.google.gson.Gson
 import com.itgnomes.punditzservice.model.Exception
 
 class ExceptionUtil {
@@ -16,7 +15,7 @@ class ExceptionUtil {
         }
 
         fun parseException(cycleStr: String): Exception {
-            return Gson().fromJson(cycleStr, Exception::class.java)
+            return PunditzUtil.parse(cycleStr, Exception::class)
         }
     }
 }

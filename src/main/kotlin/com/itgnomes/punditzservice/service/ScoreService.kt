@@ -3,9 +3,9 @@ package com.itgnomes.punditzservice.service
 import com.itgnomes.punditzservice.entity.Punditz
 import com.itgnomes.punditzservice.model.*
 import com.itgnomes.punditzservice.repository.PunditzRepository
-import com.itgnomes.punditzservice.util.ScoreUtil
 import com.itgnomes.punditzservice.util.PunditzUtil
 import com.itgnomes.punditzservice.util.Result
+import com.itgnomes.punditzservice.util.ScoreUtil
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
@@ -19,7 +19,7 @@ class ScoreService(@Autowired private val punditzRepository : PunditzRepository,
 
     // create
     fun insert(p: PunditScore) {
-        val jsonData = PunditzUtil.toJson(p)
+        val jsonData = PunditzUtil.toJson(p).toString()
         punditzRepository.save(Punditz(null, Types.SCORE.type, jsonData))
     }
 
@@ -46,7 +46,7 @@ class ScoreService(@Autowired private val punditzRepository : PunditzRepository,
         val pList = punditzRepository.findAllByTypeAndUserName(Types.SCORE.name, score.userName)
         // There can only be one. - Colin MacLeod of the Clan MacLeod
         val p = pList[0]
-        p.jsonData = PunditzUtil.toJson(score)
+        p.jsonData = PunditzUtil.toJson(score).toString()
         punditzRepository.save(p)
     }
 

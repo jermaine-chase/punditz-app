@@ -9,15 +9,15 @@ import org.springframework.web.bind.annotation.RestController
 
 import org.springframework.beans.factory.annotation.Autowired
 
-@RestController(value="/cycles")
+@RestController
 class CycleController(@Autowired private val footBallApiService: FootBallApiService) {
 
-    @GetMapping("/{cycleNumber}")
+    @GetMapping("/cycles/{cycleNumber}")
     fun get(@PathVariable cycleNumber: Int): Cycle? {
         return footBallApiService.getCycle(cycleNumber)
     }
 
-    @GetMapping
+    @GetMapping("/cycles")
     fun getAll(): List<Cycle> {
         return footBallApiService.getCycleList(PunditzUtil.EPL)
     }
