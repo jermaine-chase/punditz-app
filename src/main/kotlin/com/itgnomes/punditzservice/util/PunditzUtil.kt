@@ -11,6 +11,7 @@ import java.util.*
 import kotlin.reflect.KClass
 
 class PunditzUtil {
+
     companion object {
 
         const val EPL = 2021
@@ -49,24 +50,20 @@ class PunditzUtil {
             return JSONObject(o)
         }
 
+        @JvmStatic
         fun parseMatches(str: String): MutableList<Match> {
             val strJson = JSONObject(str)
             return parseMany(strJson.getJSONArray("matches").toString(), Match::class)
         }
 
-        fun parseTeams(str: String): MutableList<Team> {
-            val list = mutableListOf<Team>()
-            val jsonList = GSON.fromJson(str, mutableListOf<String>().javaClass)
-
-            jsonList.forEach {
-                list.add(parse(it, Team::class))
-            }
-            return list
-        }
-
         @JvmStatic
-        fun parseTeam(t: JSONObject): Team {
-            return GSON.fromJson(t.toString(), Team::class.java)
+        fun parseTeams(str: String): MutableList<Team> {
+            val strJson = JSONObject(str)
+            return parseMany(strJson.getJSONArray("teams").toString(), Team::class)
         }
+
+        fun earlier(d1: String, d2: String) = if (d1.compareTo(d2) <= 0) d1 else  d2
+
+        fun later(d1: String, d2: String) = if (d1.compareTo(d2) >= 0) d1 else  d2
     }
 }

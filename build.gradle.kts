@@ -27,6 +27,9 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.json:json:20220924")
+    implementation("org.apache.logging.log4j:log4j-api:2.19.0")
+    implementation("org.apache.logging.log4j:log4j-core:2.19.0")
+    implementation("org.apache.logging.log4j:log4j-api-kotlin:1.2.0")
     runtimeOnly("org.mariadb.jdbc:mariadb-java-client")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }

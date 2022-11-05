@@ -24,7 +24,7 @@ class PickController(@Autowired private val pickService: PickService) {
         val updateResponses = mutableListOf<String>()
         pickList.forEach{
             pickService.insert(it)
-            updateResponses.add("Updated ${it.matchId} for ${it.userName}")
+            updateResponses.add("Inserted ${it.matchId} for ${it.userName}")
         }
         return updateResponses
     }

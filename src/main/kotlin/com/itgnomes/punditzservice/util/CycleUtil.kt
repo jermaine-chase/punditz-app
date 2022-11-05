@@ -33,14 +33,10 @@ class CycleUtil {
                 }
 
                 cycle.matchList.add(it.id)
-                cycle.startDate = earlier(it.utcDate, cycle.startDate!!)
-                cycle.endDate = later(it.utcDate, cycle.endDate!!)
+                cycle.startDate = PunditzUtil.earlier(it.utcDate, cycle.startDate!!)
+                cycle.endDate = PunditzUtil.later(it.utcDate, cycle.endDate!!)
             }
             return cycleMap
         }
-
-        private fun earlier(d1: String, d2: String) = if (d1.compareTo(d2) <= 0) d1 else  d2
-
-        private fun later(d1: String, d2: String) = if (d1.compareTo(d2) >= 0) d1 else  d2
     }
 }

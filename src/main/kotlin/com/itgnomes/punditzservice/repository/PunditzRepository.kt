@@ -1,12 +1,12 @@
 package com.itgnomes.punditzservice.repository
 
 import com.itgnomes.punditzservice.entity.Punditz
+import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
-import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-interface PunditzRepository: CrudRepository<Punditz, Long> {
+interface PunditzRepository: JpaRepository<Punditz, Long> {
     fun findAllByType(type: String): List<Punditz>
 
     @Query("SELECT p FROM Punditz p WHERE p.type = ?1 AND JSON_VALUE(p.jsonData, '\$.userName') = ?2")
