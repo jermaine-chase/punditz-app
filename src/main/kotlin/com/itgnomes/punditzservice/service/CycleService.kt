@@ -24,22 +24,4 @@ class CycleService(@Autowired private val punditzRepository : PunditzRepository)
         val punditzResponse = punditzRepository.findAllByType(Types.CYCLES.name)
         return CycleUtil.parseCycles(PunditzUtil.parseResponse(punditzResponse))
     }
-
-    fun getByCycleNumber(cycleNumber: Int): Cycle {
-        val punditzResponse = punditzRepository.findByTypeAndCycleNumber(Types.CYCLES.name, cycleNumber)
-        return CycleUtil.parseCycle(punditzResponse.jsonData)
-    }
-
-    // update
-    fun update(c: Cycle) {
-        val p = punditzRepository.findByTypeAndCycleNumber(Types.CYCLES.name, c.cycleNumber)
-        p.jsonData = PunditzUtil.toJson(c).toString()
-        punditzRepository.save(p)
-    }
-
-    // delete
-    fun delete(c: Cycle) {
-        val p = punditzRepository.findByTypeAndCycleNumber(Types.CYCLES.name, c.cycleNumber)
-        punditzRepository.delete(p)
-    }
 }

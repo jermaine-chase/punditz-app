@@ -1,21 +1,22 @@
 package com.itgnomes.punditzservice.util
 
-import com.itgnomes.punditzservice.model.Exception
+import com.itgnomes.punditzservice.entity.Punditz
+import com.itgnomes.punditzservice.model.PunditzException
 
 class ExceptionUtil {
     companion object {
-        fun parseExceptions(jsonList: List<String>): MutableList<Exception> {
-            val cycleList = mutableListOf<Exception>()
+        fun parseExceptions(jsonList: List<Punditz>): MutableList<PunditzException> {
+            val cycleList = mutableListOf<PunditzException>()
 
             jsonList.forEach {
-                parseException(it)
+                parseException(it.jsonData)
             }
 
             return cycleList
         }
 
-        fun parseException(cycleStr: String): Exception {
-            return PunditzUtil.parse(cycleStr, Exception::class)
+        fun parseException(cycleStr: String): PunditzException {
+            return PunditzUtil.parse(cycleStr, PunditzException::class)
         }
     }
 }

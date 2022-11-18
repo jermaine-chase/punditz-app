@@ -75,7 +75,7 @@ class ScoreService(@Autowired private val punditzRepository : PunditzRepository,
     }
 
     fun calculateScore(match: Match, pick: Pick): PunditScore {
-        var pointsWon = 0
+        var pointsWon: Int
         val results = getFinalScore(match.score)
         val scoreDifference = abs(results.awayTeam - results.homeTeam)
         var multiplier = 1
@@ -117,5 +117,40 @@ class ScoreService(@Autowired private val punditzRepository : PunditzRepository,
         } else {
             score.extraTime
         }
+    }
+
+    fun getSuperPickTeam(userName: String, cycleNumber: Int): Team? {
+        val picks = pickService.getByUserAndCycleNumber(userName, cycleNumber)
+        var superPickTeam: Team? = null
+        picks.forEach{
+            if (it.isSuperPick) {
+                superPickTeam = footBallApiService.getTeam(null, null, it.pick)
+            }
+        }
+        return superPickTeam
+    }
+
+    fun checkEplSuperPickViolation(userName: String, cycleNumber: Int): Boolean {
+        val picks = pickService.getByUserAndCycleNumber(userName, cycleNumber)
+        val scores = getByUserAndCycleNumber(userName, cycleNumber)
+        var superPickTeam: Team? = null
+        picks.forEach {
+            if (it.points > 10) {
+                superPickTeam = footBallApiService.getTeam(null, null, it.pick)
+            }
+        }
+        var violation = false
+        if (superPickTeam != null) {
+            for (lookBack in 1 until 3) {
+                val previousSuperPickTeam = getSuperPickTeam(userName, cycleNumber - lookBack)
+                if (previousSuperPickTeam != null && previousSuperPickTeam == superPickTeam) {
+                    violation = true
+                }
+            }
+        }
+
+
+
+        return false;
     }
 }

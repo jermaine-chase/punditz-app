@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*
 class PickController(@Autowired private val pickService: PickService) {
 
     @GetMapping("/picks/{cycleNumber}")
-    fun get(@PathVariable cycleNumber: Int, @RequestHeader userName: String): List<Pick> {
+    fun get(@PathVariable cycleNumber: Int, @RequestHeader userName: String?): List<Pick> {
         return pickService.getByUserAndCycleNumber(userName, cycleNumber)
     }
 
@@ -22,7 +22,7 @@ class PickController(@Autowired private val pickService: PickService) {
     @PostMapping("/picks")
     fun insert(@RequestBody pickList: List<Pick>): MutableList<String> {
         val updateResponses = mutableListOf<String>()
-        pickList.forEach{
+        pickList.forEach {
             pickService.insert(it)
             updateResponses.add("Inserted ${it.matchId} for ${it.userName}")
         }
@@ -32,7 +32,7 @@ class PickController(@Autowired private val pickService: PickService) {
     @PutMapping("/picks")
     fun update(@RequestBody pickList: List<Pick>): MutableList<String> {
         val updateResponses = mutableListOf<String>()
-        pickList.forEach{
+        pickList.forEach {
             pickService.update(it)
             updateResponses.add("Updated ${it.matchId} for ${it.userName}")
         }
@@ -42,7 +42,7 @@ class PickController(@Autowired private val pickService: PickService) {
     @DeleteMapping("/picks")
     fun delete(@RequestBody pickList: List<Pick>): MutableList<String> {
         val updateResponses = mutableListOf<String>()
-        pickList.forEach{
+        pickList.forEach {
             pickService.delete(it)
             updateResponses.add("Deleted ${it.matchId} for ${it.userName}")
         }

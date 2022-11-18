@@ -31,8 +31,12 @@ class PickService(@Autowired private val punditzRepository : PunditzRepository) 
         return PickUtil.parsePicks(picksList)
     }
 
-    fun getByUserAndCycleNumber(userName: String, cycleNumber: Int): List<Pick> {
-        val punditzResponse = punditzRepository.findAllByTypeAndUserName(Types.PICKS.name, userName)
+    fun getByUserAndCycleNumber(userName: String?, cycleNumber: Int): List<Pick> {
+        val punditzResponse = if (userName == null) {
+            punditzRepository.findAllByTypeAndCycleNumber(Types.PICKS.name, cycleNumber)
+        } else {
+            punditzRepository.findAllByTypeAndUserNameAndCycleNumber(Types.PICKS.name, userName, cycleNumber)
+        }
         val picksList = PunditzUtil.parseResponse(punditzResponse)
         return PickUtil.parsePicks(picksList)
     }

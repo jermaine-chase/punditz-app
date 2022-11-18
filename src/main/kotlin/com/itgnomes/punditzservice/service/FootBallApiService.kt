@@ -9,9 +9,6 @@ import com.itgnomes.punditzservice.util.PunditzUtil
 import org.springframework.stereotype.Service
 import java.time.Instant
 import java.time.temporal.ChronoUnit
-import java.time.temporal.Temporal
-import java.time.temporal.TemporalUnit
-import java.util.*
 
 @Service
 class FootBallApiService {
@@ -80,8 +77,8 @@ class FootBallApiService {
         return TEAMS
     }
 
-    fun getTeam(teamId: Int?, teamName: String?): Team {
-        val team = getTeams().filter{it.id == teamId || it.name == teamName}
+    fun getTeam(teamId: Int?, teamName: String?, tla: String?): Team {
+        val team = getTeams().filter{it.id == teamId || it.name == teamName || it.tla == tla}
         return team[0]
     }
 
