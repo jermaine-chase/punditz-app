@@ -36,7 +36,7 @@ class ScoreService(@Autowired private val punditzRepository : PunditzRepository,
     }
 
     fun getByUserAndCycleNumber(userName: String, cycleNumber: Int): List<PunditScore> {
-        val punditzResponse = punditzRepository.findAllByTypeAndUserName(Types.PREDICTIONS.name, userName)
+        val punditzResponse = punditzRepository.findAllByTypeAndUserName(Types.SCORE.name, userName)
         val picksList = PunditzUtil.parseResponse(punditzResponse)
         return ScoreUtil.parseScores(picksList)
     }
@@ -130,16 +130,20 @@ class ScoreService(@Autowired private val punditzRepository : PunditzRepository,
         return superPickTeam
     }
 
-    fun checkEplSuperPickViolation(userName: String, cycleNumber: Int): Boolean {
+    fun checkEplSuperPickViolation(userName: String, cycleNumber: Int) {
         val picks = pickService.getByUserAndCycleNumber(userName, cycleNumber)
+        var superPickMatch: Pick? = null
         val scores = getByUserAndCycleNumber(userName, cycleNumber)
+        // get super pick for current team
         var superPickTeam: Team? = null
         picks.forEach {
             if (it.points > 10) {
                 superPickTeam = footBallApiService.getTeam(null, null, it.pick)
+                superPickMatch = it
             }
         }
         var violation = false
+        // check if used in violation
         if (superPickTeam != null) {
             for (lookBack in 1 until 3) {
                 val previousSuperPickTeam = getSuperPickTeam(userName, cycleNumber - lookBack)
@@ -147,10 +151,18 @@ class ScoreService(@Autowired private val punditzRepository : PunditzRepository,
                     violation = true
                 }
             }
+
+            // adjust points
+            val score = scores.filter { it.matchId == superPickMatch!!.matchId }.first()
+
+            // lose 30 for wager of 20
+            // lose 50 for wager of 40
+            score.pointsWon = 0 - score.pointsWon!! - 10
+
+            // persist to db
+            update(score)
         }
 
 
-
-        return false;
     }
 }

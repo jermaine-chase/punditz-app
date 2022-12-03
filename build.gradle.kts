@@ -21,6 +21,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
     implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-batch")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("com.google.code.gson:gson:2.10")
     implementation("com.squareup.okhttp3:okhttp:4.10.0")
@@ -32,6 +33,7 @@ dependencies {
     implementation("org.apache.logging.log4j:log4j-api-kotlin:1.2.0")
     runtimeOnly("org.mariadb.jdbc:mariadb-java-client")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.springframework.batch:spring-batch-test")
 }
 
 tasks.withType<KotlinCompile> {
